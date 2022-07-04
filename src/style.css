@@ -1,0 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400,600,700&display=swap');
+
+$white: #F4F9F9;
+$cyan: #A2CFCD;
+$light-cyan: #D7F1EB;
+$green: #15C199;
+$red: #F84040;
+$black: #181A1A;
+
+$corner: 8px;
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 16px;
+  color: $black;
+  background-color: $cyan;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button {
+  outline: none;
+  border: none;
+  border-radius: $corner;
+  background-color: $green;
+  color: white;
+  height: 40px;
+  padding: 0px 24px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.card {
+  width: 90%;
+  min-width: 1000px;
+  height: 80%;
+  position: relative;
+  background-color: $white;
+  border-radius: $corner;
+  box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.05);
+  
+  .content {
+    position: absolute;
+    top: 25%;
+    left: 10%;
+    width: 40%;
+    .title {
+      font-size: 54px;
+      line-height: 100%;
+      margin-bottom: 12px;
+    }
+    .description {
+      opacity: 0.5;
+      font-size: 14px;
+      padding-top: 12px;
+      padding-bottom: 24px;
+    }
+    .action-card {
+      border-left: solid 1px $red;
+      background-color: white;
+      border-top-right-radius: $corner;
+      border-bottom-right-radius: $corner;
+      display: flex;
+      align-items: center;
+      padding: 18px;
+      .action-card-content {
+        .action-subtitle {
+          font-weight: 700;
+          opacity: 0.6;
+          font-size: 12px;
+        }
+        .action-title {
+          font-size: 18px;
+          line-height: 150%;
+        }
+        .action-subtext {
+          font-size: 12px;
+          opacity: 0.4;
+        }
+      }
+      .button {
+        margin-left: auto;
+      }
+      
+    }
+  }
+  
+  .circle {
+    position: absolute;
+    border-radius: 50%;
+    $size: 440px;
+    width: $size;
+    height: $size;
+    top: 12%;
+    right: 4%;
+    background-color: $light-cyan;
+    box-shadow: 0px 0px 0px $size/1.5 rgba($light-cyan, 0.3);
+  }
+  
+  .feature-image {
+    position: absolute;
+    height: 105%;
+    bottom: -4px;
+    right: -8px;
+  }
+  
+  .header {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 12px;
+    .icon {
+      width: 80px;
+      margin-right: 25%;
+    }
+    .nav-bar {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      .nav-item {
+        cursor: pointer;
+        margin-right: 36px;
+        opacity: 40%;
+        font-size: 14px;
+        font-weight: 600;
+        &.active {
+          opacity: 1;
+          display: flex;
+          justify-content: center;
+          &:after {
+            content: '';
+            bottom: 25%;
+            position: absolute;
+            border-radius: 50%;
+            $size: 5px;
+            height: $size;
+            width: $size;
+            background-color: $green;
+          }
+        }
+      }
+    }
+    
+    .button {
+      margin-left: auto;
+    }
+  }
+  
+}
