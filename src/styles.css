@@ -12,7 +12,7 @@ body {
   font-family: "Nunito Sans", sans-serif;
   font-size: 16px;
   color: #181a1a;
-  background-color: #a2cfcd;
+  background-color: #acc8d4;
   margin: 0;
   display: flex;
   align-items: center;
@@ -23,7 +23,7 @@ body {
   outline: none;
   border: none;
   border-radius: 8px;
-  background-color: #15c199;
+  background-color: #2e2e2e;
   color: white;
   height: 40px;
   padding: 0px 24px;
@@ -35,7 +35,7 @@ body {
 .card {
   width: 90%;
   min-width: 1000px;
-  height: 80%;
+  height: 70%;
   position: relative;
   background-color: #f4f9f9;
   border-radius: 8px;
@@ -59,7 +59,6 @@ body {
   padding-bottom: 24px;
 }
 .card .content .action-card {
-  border-left: solid 1px #f84040;
   background-color: white;
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
@@ -83,16 +82,16 @@ body {
 .card .content .action-card .button {
   margin-left: auto;
 }
-.card .circle {
+/* .card .circle {
   position: absolute;
   border-radius: 50%;
   width: 440px;
   height: 440px;
   top: 12%;
   right: 4%;
-  background-color: #d7f1eb;
+  background-color: #3735cf;
   box-shadow: 0px 0px 0px 293.3333333333px rgba(215, 241, 235, 0.3);
-}
+} */
 .card .feature-image {
   position: absolute;
   height: 105%;
