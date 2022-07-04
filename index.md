@@ -1,4 +1,4 @@
-![logo](../images/DBF_Logo_square.png)
+![logo](/images/DBF_Logo_square.png)
 
 ## Rutvik-Cesar-Team
 
