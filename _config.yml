@@ -2,5 +2,5 @@ theme: minima
 
 @import "{{ site.theme }}";
 .markdown-body {
-  font-family: 'Poppins', Nunito, serif;
+  font-family: 'Nunito', sans-serif;
 }
