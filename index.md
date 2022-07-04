@@ -6,7 +6,7 @@ Hello Team, this is our landing page for our project Still work in progress, pro
 
 
 # Name of Project
-## Header 2
+## Section 01
 ### Header 3
 
 - Bulleted
@@ -26,6 +26,3 @@ For more details see [Basic writing and formatting syntax](https://docs.github.c
 
 Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/cesarchengcruz/rut-ces-team/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
 
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
