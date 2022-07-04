@@ -2,7 +2,7 @@
 
 ## Rutvik-Cesar-Team
 
-Hello Team, this is our landing page for our project Still work in progress, project description
+Hello Team, this is our landing page for our project Still work in progress, project descriptions
 
 
 # Name of Project
