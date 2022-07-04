@@ -1,9 +1,2 @@
-theme: jekyll-theme-minimal
-title: Rutvik Cesar Project
-description: description here
-remote_theme: benbalter/retlab
+theme: minima
 
-@import "{{ site.theme }}";
-.markdown-body {
-  font-family: 'Times New Roman', Times, serif;
-  }
