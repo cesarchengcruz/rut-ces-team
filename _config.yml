@@ -1,3 +1,8 @@
 theme: jekyll-theme-minimal
 title: Rutvik Cesar Project
 description: description here
+
+@import "{{ site.theme }}";
+.markdown-body {
+  font-family: 'Times New Roman', Times, serif;
+  }
