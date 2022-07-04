@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400,600,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;1,300&family=Poppins:wght@100;300&display=swap");
 *,
 *:before,
 *:after {
@@ -9,7 +9,7 @@ body {
   position: relative;
   width: 100vw;
   height: 100vh;
-  font-family: "Nunito Sans", sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: 16px;
   color: #181a1a;
   background-color: #acc8d4;
@@ -23,6 +23,7 @@ body {
   outline: none;
   border: none;
   border-radius: 8px;
+  font-family: "Nunito", sans-serif;
   background-color: #2e2e2e;
   color: white;
   height: 40px;
