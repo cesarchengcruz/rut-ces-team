@@ -1,6 +1,7 @@
 theme: jekyll-theme-minimal
 title: Rutvik Cesar Project
 description: description here
+remote_theme: benbalter/retlab
 
 @import "{{ site.theme }}";
 .markdown-body {
