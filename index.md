@@ -12,4 +12,7 @@ Hello Team, this is our landing page for our project Still work in progress, pro
 - link
 - link
 
+## Prototypes
+
+- [Prototype](https://cesarchengcruz.github.io/rut-ces-team/src/index.html) 
 
