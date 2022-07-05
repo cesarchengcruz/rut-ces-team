@@ -206,9 +206,9 @@ for (const swatch of swatches) {
     swatch.addEventListener('click', selectSwatch);
 }
 
-var new_mtl;
 
-var listcol = [];
+
+
 
 function selectSwatch(e) {
 
@@ -218,8 +218,7 @@ function selectSwatch(e) {
     return new_mtl; 
 }
 
-console.log(new_mtl);
-
+let tempMat = selectSwatch(e)
 
 
 
