@@ -1,6 +1,3 @@
-
-
-@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;1,300&family=Poppins:wght@100;300&display=swap");
 *
 {
     margin: 0;
@@ -9,56 +6,32 @@
 
 html,
 body
-{   
+{
     overflow: hidden;
     background-image: linear-gradient(#E7C6F8, #F7F1FA);
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    color: #444444;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow: hidden;
     
 }
 
 .webgl
 {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     outline: none;
-    
-    
-}
-
-.controls {
-    display: hidden;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-}
-
-.tray__swatch {
-    transition: 0.1s ease-in;
-    height: 50px;
-    min-width: 50px;
-    flex: 1;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-    background-size: cover;
-    background-position: center;
-}
-
-.tray__swatch:nth-child(5n+5) {
-    margin-right: 20px;
-}
-
-.tray {
-    width: 100%;
-    height: 50px;
-    position: relative;
-    overflow-x: hidden;
-}
-
-.tray__slide {
-    position: absolute;
-    display: flex;
-    left: 0;
-    /*   transform: translateX(-50%);
-  animation: wheelin 1s 2s ease-in-out forwards; */
 }
 
 .container {
@@ -90,4 +63,46 @@ span {
     border-radius: 8px;
     box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.05);
   }
+
+.options {
+position: absolute;
+right: 0.5%;
+}
+
+.option {
+    background-color: rgba(255, 255, 255, 0);
+    padding: 10px;
+    height: 75px;
+    width: 75px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.option:hover {
+    border-radius: 10px;
+    box-shadow: 0 0 11px rgba(33,33,33,.2); 
+    height: 80px;
+    width: 80px;
+}
+
+/* .option.--is-active {
+    border-radius: 8px;
+    box-shadow: 0 0 11px rgba(87, 87, 87, 0.582); 
+
+} */
+
+.option.--is-active:hover {
+    border-radius: 8px;
+    box-shadow: 0 0 11px rgba(33,33,33,.2); 
+    height: 80px;
+    width: 80px;
+}
+
+.option img {
+    height: 100%;
+    width: auto;
+    pointer-events: none;
+}
   
