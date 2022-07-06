@@ -107,7 +107,7 @@ var loader = new GLTFLoader();
 loader.crossOrigin = true;
 loader.load( 'models/bamboo.glb', function ( data ) {
 
-  var count = 25; // getRndInteger(0, 50)
+  var count = 55; // getRndInteger(0, 50) or number of starting bamboo cells
   for(var i = -count; i < count - 1; i++) {
     
     var object = data.scene
@@ -157,6 +157,18 @@ avatar02.load(
 )
 
 // ASSERTS LOAD
+
+const modeltest = new GLTFLoader();
+modeltest.load(
+    'models/composition.glb',
+    function (gltf) {
+
+        const model = gltf.scene;
+        model.position.setX(2.5);
+        model.position.setZ(2.5);
+        scene.add(model)
+    },
+)
 
 const model01 = new GLTFLoader();
 model01.load(
@@ -255,10 +267,12 @@ const directionalLight = new THREE.DirectionalLight(0xffffff);
 directionalLight.position.set(1, 0.75, 0.5).normalize();
 scene.add(directionalLight);
 
-const directionalLight2 = new THREE.DirectionalLight(0xffffff);
-directionalLight2.position.set(1, 0.75, 0.5).normalize();
-scene.add(directionalLight);
+// const directionalLight2 = new THREE.DirectionalLight(0xffffff,.5);
+// directionalLight2.position.set(15, 25, 15);
+// scene.add(directionalLight2);
 
+// const helper = new THREE.DirectionalLightHelper( directionalLight2, 5 );
+// scene.add(helper)
 
 /**
  * Sizes
