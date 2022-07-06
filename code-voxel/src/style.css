@@ -1,3 +1,6 @@
+
+
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;1,300&family=Poppins:wght@100;300&display=swap");
 *
 {
     margin: 0;
@@ -6,19 +9,24 @@
 
 html,
 body
-{
+{   
     overflow: hidden;
+    background-image: linear-gradient(#E7C6F8, #F7F1FA);
+    
 }
 
 .webgl
 {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     outline: none;
+    
+    
 }
 
 .controls {
+    display: hidden;
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -52,3 +60,34 @@ body
     /*   transform: translateX(-50%);
   animation: wheelin 1s 2s ease-in-out forwards; */
 }
+
+.container {
+    height:100vh;
+    display: grid;
+    place-items: top;
+    margin-top: 1em;
+    margin-left: 1em;
+}
+
+h1 {
+    font-size: 3rem;
+    font-family: 'nunito';
+    color: #ffffff;
+}
+
+span {
+    color: #F7F1FA;
+}
+
+
+
+.card {
+    width: 90%;
+    min-width: 1000px;
+    height: 70%;
+    position: relative;
+    background-color: #021515;
+    border-radius: 8px;
+    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.05);
+  }
+  
