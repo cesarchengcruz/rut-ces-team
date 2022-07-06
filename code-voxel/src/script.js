@@ -5,12 +5,27 @@ import * as dat from 'lil-gui'
 
 import Stats from 'three/examples/jsm/libs/stats.module'
 
+
 var container, stats;
+<<<<<<< Updated upstream
 var mouse2D, mouse3D, ray,
 rollOveredFace, isShiftDown = false,
 theta = 45, isCtrlDown = false;
 let rollOverGeo
 var rollOverMesh, rollOverMaterial, voxelPosition = new THREE.Vector3(), tmpVec = new THREE.Vector3();
+=======
+var mouse2D,
+  mouse3D,
+  ray,
+  rollOveredFace,
+  isShiftDown = false,
+  theta = 45,
+  isCtrlDown = false;
+let rollOverGeo;
+var rollOverMesh,
+  rollOverMaterial,
+  tmpVec = new THREE.Vector3();
+>>>>>>> Stashed changes
 var cubeGeo, cubeMaterial;
 var i, intersector;
 
@@ -128,7 +143,22 @@ window.addEventListener('resize', () =>
  */
 // Base camera
 
+<<<<<<< Updated upstream
 
+=======
+// avatar01.load(
+//     'models/character.glb',
+//     function (gltf) {
+
+//         const model = gltf.scene;
+//         model.position.setX(70);
+//         model.position.setZ(-30);
+//         // model.rotateY(Math.PI / 2);
+//         model.position.set(0, 50, -100);
+//         scene.add(model)
+//     },
+// )
+>>>>>>> Stashed changes
 
 const camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 10000 );
 camera.position.set( 500, 800, 1300 );
@@ -136,6 +166,7 @@ camera.lookAt( 0, 0, 0 );
 scene.add(camera)
 
 
+<<<<<<< Updated upstream
 // Controls
 const controls = new OrbitControls(camera, canvas)
 controls.enableDamping = true
@@ -149,19 +180,92 @@ const renderer = new THREE.WebGLRenderer({
 })
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+=======
+// const avatar02 = new GLTFLoader()
+
+// avatar02.load(
+//     'models/character2.glb',
+//     function (gltf) {
+
+//         const model = gltf.scene;
+//         model.position.setX(70);
+//         model.position.setZ(-30);
+//         model.rotateY(Math.PI / 2);
+//         model.position.set(-100, 30, 0);
+//         scene.add(model)
+//     },
+// )
+>>>>>>> Stashed changes
 
 // vector.multiplyMatrix4()
 // vector.applyMatrix4( matrix )
 
+<<<<<<< Updated upstream
+=======
+
+const model01 = new GLTFLoader();
+model01.load(
+    'models/flat-module.glb',
+    function (gltf) {
+>>>>>>> Stashed changes
 
 
+<<<<<<< Updated upstream
 
 function save() {
 
     window.open( renderer.domElement.toDataURL('image/png'), 'mywindow' );
+=======
+// scene.add(glTFGeometry)
+
+let glTFGeometry;
+
+const model02 = new GLTFLoader()
+model02.load(
+    'models/roof-module.glb',
+    function (gltf) {
+
+        const model = gltf.scene;
+        model.position.setX(30);
+        model.position.setZ(70);
+
+        gltf.scene.traverse( function ( child ) {
+
+          if ( child.isMesh ) {
+      
+              //Setting the buffer geometry
+              glTFGeometry = child.geometry;
+      
+          }
+      
+      } );
+
+        scene.add(model)
+    },
+)
+>>>>>>> Stashed changes
 
 }
 
+<<<<<<< Updated upstream
+=======
+glTFGeometry = new THREE.BufferGeometry(model02);
+let cloned =  new THREE.Mesh( glTFGeometry.clone());
+cloned.position.set(-60, 0, 70)
+scene.add(cloned)
+
+
+
+console.log(cloned)
+
+// voxel.position.copy(intersect.point).add(intersect.face.normal);
+// voxel.position.divideScalar(5).floor().multiplyScalar(5).addScalar(2.5);
+
+const model03 = new GLTFLoader()
+model03.load(
+    'models/stair-module.glb',
+    function (gltf) {
+>>>>>>> Stashed changes
 
 const colors = [
     {
@@ -189,6 +293,7 @@ function buildColors(colors) {
     let swatch = document.createElement('div');
     swatch.classList.add('tray__swatch');
 
+<<<<<<< Updated upstream
         swatch.style.background = "#" + color.color;
 
     swatch.setAttribute('data-key', i);
@@ -201,6 +306,29 @@ buildColors(colors);
     
 // Swatches
 const swatches = document.querySelectorAll(".tray__swatch");
+=======
+// Text Icon 
+
+// const text1 = new GLTFLoader()
+
+// text1.load(
+//     'icons/housing.glb',
+//     function (gltf) {
+
+//         const model = gltf.scene;
+//         model.rotateY(Math.PI / 2);
+//         scene.add(model)
+//     },
+// )
+
+// test sphere
+
+// const geometry1 = new THREE.SphereGeometry( 15, 32, 16 );
+// const material1 = new THREE.MeshBasicMaterial( { color: "blue" } );
+// const sphere = new THREE.Mesh( geometry1, material1 );
+// sphere.position.set(100, 50, 0);
+// scene.add( sphere );
+>>>>>>> Stashed changes
 
 for (const swatch of swatches) {
     swatch.addEventListener('click', selectSwatch);
@@ -247,7 +375,22 @@ function onWindowResize() {
 
     render();
 
+<<<<<<< Updated upstream
 }
+=======
+var hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.11);
+hemiLight.position.set(0, 50, 0);
+// Add hemisphere light to scene   
+scene.add(hemiLight);
+
+/**
+ * Sizes
+ */
+const sizes = {
+  width: window.innerWidth,
+  height: window.innerHeight,
+};
+>>>>>>> Stashed changes
 
 function onPointerMove( event ) {
 
@@ -259,7 +402,14 @@ function onPointerMove( event ) {
 
     if ( intersects.length > 0 ) {
 
+<<<<<<< Updated upstream
         const intersect = intersects[ 0 ];
+=======
+// Controls
+const controls = new OrbitControls(camera, canvas);
+controls.enableDamping = true;
+controls.dampingFactor = 0.1;
+>>>>>>> Stashed changes
 
         rollOverMesh.position.copy( intersect.point ).add( intersect.face.normal );
         rollOverMesh.position.divideScalar( 50 ).floor().multiplyScalar( 50 ).addScalar( 25 );
@@ -268,6 +418,7 @@ function onPointerMove( event ) {
 
     }
 
+<<<<<<< Updated upstream
 }
 
 
@@ -289,6 +440,47 @@ function onPointerDown( event ) {
         if ( event.button == 2 ) {
 
             if ( intersect.object !== plane ) {
+=======
+
+// Select Option
+
+let new_mtl;
+
+new_mtl = new THREE.MeshLambertMaterial({
+  color: parseInt("0x000050"),
+});
+
+$('#roof').click(() => {
+  new_mtl = new THREE.MeshLambertMaterial({
+    color: parseInt("0xA65F21"),
+  });
+})
+
+$('#stairs').click(() => {
+  new_mtl = new THREE.MeshLambertMaterial({
+    color: parseInt("0xFF6B31"),
+  });
+})
+
+$('#room').click(() => {
+  new_mtl = new THREE.MeshLambertMaterial({
+    color: parseInt("0xBF9A56"),
+  });
+})
+
+$('#connector').click(() => {
+  new_mtl = new THREE.MeshLambertMaterial({
+    color: parseInt("0x59271C"),
+  });
+})
+
+$('#bamboo').click(() => {
+  new_mtl = new THREE.MeshLambertMaterial({
+    color: parseInt("0x83A605"),
+  });
+})
+
+>>>>>>> Stashed changes
 
                 scene.remove( intersect.object );
 
@@ -296,6 +488,7 @@ function onPointerDown( event ) {
 
             }
 
+<<<<<<< Updated upstream
             // create cube
             
 
@@ -307,6 +500,13 @@ function onPointerDown( event ) {
             scene.add( voxel );
 
             objects.push( voxel );
+=======
+function onPointerMove(event) {
+  pointer.set(
+    (event.clientX / window.innerWidth) * 2 - 1,
+    -(event.clientY / window.innerHeight) * 2 + 1
+  );
+>>>>>>> Stashed changes
 
         } else {
             console.log("Press Mouse Button")
@@ -320,6 +520,17 @@ function onPointerDown( event ) {
 
 }
 
+<<<<<<< Updated upstream
+=======
+// addedModel.position.set(80, 0, -20);
+
+
+function onPointerDown(event) {
+  pointer.set(
+    (event.clientX / window.innerWidth) * 2 - 1,
+    -(event.clientY / window.innerHeight) * 2 + 1
+  );
+>>>>>>> Stashed changes
 
 function onDocumentKeyDown( event ) {
 
@@ -329,17 +540,70 @@ function onDocumentKeyDown( event ) {
 
     }
 
+<<<<<<< Updated upstream
 }
+=======
+    if (event.button == 2) {
+      if (intersect.object !== plane) {
+        scene.remove(intersect.object);
+        console.log(intersect.object);
+        intersect.object.geometry.dispose();
+        intersect.object.material.dispose();
+
+>>>>>>> Stashed changes
 
 function onDocumentKeyUp( event ) {
 
+<<<<<<< Updated upstream
     switch ( event.keyCode ) {
 
         case 16: isShiftDown = false; break;
+=======
+      // create cube
+    } else if (event.button == 0) {
+
+      
+      const voxel = new THREE.Mesh(cubeGeo, new_mtl);
+      voxel.position.copy(intersect.point).add(intersect.face.normal);
+      voxel.position.divideScalar(5).floor().multiplyScalar(5).addScalar(2.5);
+
+      if (voxel.position.y < 13) {
+        scene.add(voxel);
+        objects.push(voxel);
+      }
+      else {
+        alert("Bamboo construction restricts to 3 storeys")
+      }
+      
+      console.log(voxel.position)
+      
+    } else {
+      console.log("Press Mouse Button");
+    }
+>>>>>>> Stashed changes
 
     }
 
 }
+
+
+const clock = new THREE.Clock()
+
+const tick = () =>
+{
+    const elapsedTime = clock.getElapsedTime()
+
+    // Update controls
+    controls.update()
+
+    // Render
+    renderer.render(scene, camera)
+
+    // Call tick again on the next frame
+    window.requestAnimationFrame(tick)
+}
+
+tick()
 
 function render() {
 
