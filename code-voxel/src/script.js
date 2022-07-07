@@ -86,7 +86,7 @@ const pointer = new THREE.Vector2();
 const geometry = new THREE.PlaneGeometry( 100, 100 );
 geometry.rotateX( - Math.PI / 2 );
 
-const plane = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial( { visible: false } ) );
+const plane = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial( { visible: true } ) );
 scene.add( plane );
 
 objects.push( plane );
@@ -98,7 +98,7 @@ const directionalLight = new THREE.DirectionalLight( 0xffffff );
 directionalLight.position.set( 1, 0.75, 0.5 ).normalize();
 scene.add( directionalLight );
 
-var hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.11);
+var hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.21);
 hemiLight.position.set(0, 50, 0);
 // Add hemisphere light to scene   
 scene.add(hemiLight);
@@ -185,13 +185,13 @@ loader.load( 'models/bamboo.glb', function ( data ) {
 var count = 25; // getRndInteger(0, 50)
 for(var i = -count; i < count - 1; i++) {
   
-  var object = data.scene
+  var bamObject = data.scene
   if(count > 1) {
-    object = data.scene.clone();
+    bamObject = data.scene.clone();
   }
-   object.position.set(randomItem(i)-2.5, 0, randomItem(i)-2.5);
+  bamObject.position.set(randomItem(i)-2.5, 0, randomItem(i)-2.5);
 
-  scene.add( object );
+  scene.add( bamObject );
 }
 
 });
@@ -215,6 +215,8 @@ avatar02.load(
 
 // ASSERTS LOAD
 
+let cRoof;
+
 const model01 = new GLTFLoader();
 model01.load(
     'models/flat-module.glb',
@@ -224,6 +226,7 @@ model01.load(
         model.position.setX(0);
         model.position.setZ(70);
         scene.add(model)
+        
     },
 )
 
@@ -236,6 +239,7 @@ model02.load(
         model.position.setX(30);
         model.position.setZ(70);
         scene.add(model)
+        cRoof = model;
     },
 )
 
@@ -423,19 +427,43 @@ function onPointerDown( event ) {
         objects.splice( objects.indexOf( intersect.object ), 1 );
 
       }
+
+      //test create a model
+
+
+
       
 
       // create cube
 
     } if ( event.button == 0 ) {
       console.log(new_mtl.label)
+
+      
+
+      /// model ///
       const voxel = new THREE.Mesh( cubeGeo, new_mtl.material );
+
+      const voxelR = cRoof.clone()
+      
+
+      voxelR.position.copy( intersect.point ).add( intersect.face.normal );
+      voxelR.position.divideScalar( 5 ).floor().multiplyScalar( 5 ).addScalar( 2.5 );
+      voxelR.position.setY(voxelR.position.y - 2.5)
+
+      scene.add(voxelR)
+      objects.push(voxelR);
+
+      console.log(objects)
+
+      
       voxel.position.copy( intersect.point ).add( intersect.face.normal );
       voxel.position.divideScalar( 5 ).floor().multiplyScalar( 5 ).addScalar( 2.5 );
-
+      // voxel.position.setY(-.1)
       if (voxel.position.y < 13) {
         scene.add(voxel);
         objects.push(voxel);
+        
       }
       else {
         alert("Bamboo construction restricts to 3 storeys")
