@@ -71,8 +71,6 @@ scene.add( rollOverMesh );
 cubeGeo = new THREE.BoxGeometry( 5, 5, 5 );
 cubeMaterial = new THREE.MeshLambertMaterial( { color: 0xfeb74c } ); //map: new THREE.TextureLoader().load( '/textures/bamboo.jpg'
 
-
-
 // grid
 
 const gridHelper = new THREE.GridHelper( 100, 20 );
@@ -188,6 +186,12 @@ var count = 25; // getRndInteger(0, 50)
 for(var i = -count; i < count - 1; i++) {
   
   var bamObject = data.scene
+  bamObject.traverse((o) => {
+    if (o.isMesh) {
+      o.castShadow = true;
+      o.receiveShadow = true;
+    }
+  });
   if(count > 1) {
     bamObject = data.scene.clone();
   }
@@ -226,6 +230,12 @@ model01.load(
     function (gltf) {
 
         const model = gltf.scene;
+        gltf.scene.traverse((o) => {
+          if (o.isMesh) {
+            o.castShadow = true;
+            o.receiveShadow = true;
+          }
+        });
         model.position.setX(0);
         model.position.setZ(70);
         scene.add(model)
@@ -240,6 +250,12 @@ model02.load(
     function (gltf) {
 
         const model = gltf.scene;
+        gltf.scene.traverse((o) => {
+          if (o.isMesh) {
+            o.castShadow = true;
+            o.receiveShadow = true;
+          }
+        });
         model.position.setX(30);
         model.position.setZ(70);
         scene.add(model)
@@ -255,6 +271,12 @@ model03.load(
     function (gltf) {
 
         const model = gltf.scene;
+        gltf.scene.traverse((o) => {
+          if (o.isMesh) {
+            o.castShadow = true;
+            o.receiveShadow = true;
+          }
+        });
         model.position.setX(-30);
         model.position.setZ(70);
         scene.add(model)
@@ -268,6 +290,12 @@ model04.load(
     function (gltf) {
 
         const model = gltf.scene;
+        gltf.scene.traverse((o) => {
+          if (o.isMesh) {
+            o.castShadow = true;
+            o.receiveShadow = true;
+          }
+        });
         model.position.setX(0 -2.5);
         model.position.setZ(0-2.5);
         scene.add(model)
@@ -368,6 +396,7 @@ const renderer = new THREE.WebGLRenderer({
 })
 
 renderer.shadowMap.enabled = true;
+
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 

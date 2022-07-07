@@ -42,8 +42,23 @@ body
     height:100vh;
     display: grid;
     place-items: top;
+    font-family: 'Poppins', sans-serif;
     margin-top: 3em;
     margin-left: 1em;
+}
+
+#info {
+    color: black;
+    position: absolute;
+    left: 20px !important;
+    bottom: 20px !important;
+    font-family: 'Poppins', sans-serif;
+    z-index: 201;
+    padding: 10px;
+  }
+
+#info a {
+color: black;
 }
 
 .leftpanel {
@@ -92,6 +107,7 @@ h1 {
     font-size: 3rem;
     font-family: 'poppins';
     color: #ffffff;
+    text-shadow: 2px 2px 4px #00000082;
 }
 
 span {
