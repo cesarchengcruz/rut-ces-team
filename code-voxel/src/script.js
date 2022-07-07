@@ -78,8 +78,6 @@ cubeMaterial = new THREE.MeshLambertMaterial( { color: 0xfeb74c } ); //map: new 
 const gridHelper = new THREE.GridHelper( 100, 20 );
 scene.add( gridHelper );
 
-//
-
 const raycaster = new THREE.Raycaster();
 const pointer = new THREE.Vector2();
 
@@ -91,15 +89,19 @@ scene.add( plane );
 
 objects.push( plane );
 
-const ambientLight = new THREE.AmbientLight( 0x606060 );
+const ambientLight = new THREE.AmbientLight( 0x404040 );
 scene.add( ambientLight );
 
-const directionalLight = new THREE.DirectionalLight( 0xffffff );
-directionalLight.position.set( 1, 0.75, 0.5 ).normalize();
+const directionalLight = new THREE.DirectionalLight( 0xe8c37b, 1.55 );
+directionalLight.position.set(110,35,-100);
 scene.add( directionalLight );
 
-var hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.21);
-hemiLight.position.set(0, 50, 0);
+const sunLight = new THREE.DirectionalLight(0xe8c37b, 1.55);
+sunLight.position.set(-110,30,104);
+scene.add(sunLight);
+
+var hemiLight = new THREE.HemisphereLight(0xffffff, 0xe8c37b, 0.25);
+hemiLight.position.set(0, 20, 0);
 // Add hemisphere light to scene   
 scene.add(hemiLight);
 
@@ -177,7 +179,7 @@ function randomItem (){
 
 //Create random bamboo forest
 
-
+let cBamboo;
 var loader = new GLTFLoader();
 loader.crossOrigin = true;
 loader.load( 'models/bamboo.glb', function ( data ) {
@@ -192,30 +194,31 @@ for(var i = -count; i < count - 1; i++) {
   bamObject.position.set(randomItem(i)-2.5, 0, randomItem(i)-2.5);
 
   scene.add( bamObject );
+  cBamboo = bamObject;
 }
 
 });
 
 // Aavatars
 
-const avatar02 = new GLTFLoader()
+// const avatar02 = new GLTFLoader()
 
-avatar02.load(
-    'models/character2.glb',
-    function (gltf) {
+// avatar02.load(
+//     'models/character2.glb',
+//     function (gltf) {
 
-        const model = gltf.scene;
-        model.position.setX(70);
-        model.position.setZ(-30);
-        model.rotateY(Math.PI / 2);
-        model.position.set(-100, 30, 0);
-        scene.add(model)
-    },
-)
+//         const model = gltf.scene;
+//         model.position.setX(70);
+//         model.position.setZ(-30);
+//         model.rotateY(Math.PI / 2);
+//         model.position.set(-100, 30, 0);
+//         scene.add(model)
+//     },
+// )
 
 // ASSERTS LOAD
 
-let cRoof;
+let cRoof, cRoom, cStairs, cConnector;
 
 const model01 = new GLTFLoader();
 model01.load(
@@ -226,6 +229,7 @@ model01.load(
         model.position.setX(0);
         model.position.setZ(70);
         scene.add(model)
+        cRoom = model;
         
     },
 )
@@ -240,6 +244,7 @@ model02.load(
         model.position.setZ(70);
         scene.add(model)
         cRoof = model;
+        
     },
 )
 
@@ -253,6 +258,7 @@ model03.load(
         model.position.setX(-30);
         model.position.setZ(70);
         scene.add(model)
+        cStairs = model;
     },
 )
 
@@ -278,20 +284,6 @@ const sizes = {
     height: window.innerHeight
 }
 
-window.addEventListener('resize', () =>
-{
-    // Update sizes
-    sizes.width = window.innerWidth
-    sizes.height = window.innerHeight
-
-    // Update camera
-    camera.aspect = sizes.width / sizes.height
-    camera.updateProjectionMatrix()
-
-    // Update renderer
-    renderer.setSize(sizes.width, sizes.height)
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-})
 
 /**
  * Camera
@@ -319,16 +311,17 @@ controls.dampingFactor = 0.1;
 
 let new_mtl = {
   material: new THREE.MeshLambertMaterial({
-    color: parseInt("0x000050")}),
+    color: parseInt("0x000050"), opacity: 0.0, transparent: true}),
   label: null
 
 }
 
+let numeric = 1; 
 
 
 $('#roof').click(() => {
   new_mtl.material = new THREE.MeshLambertMaterial({
-    color: parseInt("0xA65F21"),
+    color: parseInt("0xA65F21"), opacity: 0.0, transparent: true
     
   });
   new_mtl.label = "roof"
@@ -336,31 +329,35 @@ $('#roof').click(() => {
 
 $('#stairs').click(() => {
   new_mtl.material = new THREE.MeshLambertMaterial({
-    color: parseInt("0xFF6B31"),
+    color: parseInt("0xFF6B31"), opacity: 0.0, transparent: true
   });
   new_mtl.label = "stairs"
 })
 
 $('#room').click(() => {
   new_mtl.material = new THREE.MeshLambertMaterial({
-    color: parseInt("0xBF9A56"),
+    color: parseInt("0xBF9A56"), opacity: 0.0, transparent: true
   });
   new_mtl.label = "room"
 })
 
 $('#connector').click(() => {
   new_mtl.material = new THREE.MeshLambertMaterial({
-    color: parseInt("0x59271C"),
+    color: parseInt("0x59271C"), opacity: 0.0, transparent: true
   });
   new_mtl.label = "connector"
 })
 
 $('#bamboo').click(() => {
   new_mtl.material = new THREE.MeshLambertMaterial({
-    color: parseInt("0x83A605"),
+    color: parseInt("0x83A605"), opacity: 0.0, transparent: true
   });
   new_mtl.label = "bamboo"
 })
+
+
+
+
 
 
 /**
@@ -369,8 +366,25 @@ $('#bamboo').click(() => {
 const renderer = new THREE.WebGLRenderer({
     canvas: canvas, antialias: true, preserveDrawingBuffer: true, alpha: true
 })
+
+renderer.shadowMap.enabled = true;
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+
+window.addEventListener('resize', () =>
+{
+    // Update sizes
+    sizes.width = window.innerWidth
+    sizes.height = window.innerHeight
+
+    // Update camera
+    camera.aspect = sizes.width / sizes.height
+    camera.updateProjectionMatrix()
+
+    // Update renderer
+    renderer.setSize(sizes.width, sizes.height)
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+})
 
 stats = new Stats();
 stats.domElement.style.position = 'absolute';
@@ -430,22 +444,31 @@ function onPointerDown( event ) {
 
       //test create a model
 
-
-
-      
-
       // create cube
 
     } if ( event.button == 0 ) {
-      console.log(new_mtl.label)
-
-      
+  
 
       /// model ///
       const voxel = new THREE.Mesh( cubeGeo, new_mtl.material );
 
-      const voxelR = cRoof.clone()
+      let voxelR;
       
+      if (new_mtl.label == "roof") {
+        voxelR = cRoof.clone();
+      } else if (new_mtl.label == "room") {
+        voxelR = cRoom.clone();
+      } else if (new_mtl.label == "bamboo") {
+        voxelR = cBamboo.clone();
+      } else if (new_mtl.label == "stairs") {
+        voxelR = cStairs.clone();
+      } else if (new_mtl.label == "connector") {
+        voxelR = cStairs.clone();
+      } else {
+        voxelR = cRoom.clone();
+      }
+      
+      console.log(new_mtl.label)
 
       voxelR.position.copy( intersect.point ).add( intersect.face.normal );
       voxelR.position.divideScalar( 5 ).floor().multiplyScalar( 5 ).addScalar( 2.5 );
@@ -454,7 +477,7 @@ function onPointerDown( event ) {
       scene.add(voxelR)
       objects.push(voxelR);
 
-      console.log(objects)
+      // console.log(objects)
 
       
       voxel.position.copy( intersect.point ).add( intersect.face.normal );
