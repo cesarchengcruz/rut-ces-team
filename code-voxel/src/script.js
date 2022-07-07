@@ -103,6 +103,60 @@ hemiLight.position.set(0, 50, 0);
 // Add hemisphere light to scene   
 scene.add(hemiLight);
 
+
+//calculation function
+
+let counter = { 
+  roof : 0,
+  room: 0,
+  connector: 0,
+  bamboo:0,
+  stairs: 0,
+}
+
+function calcNeu(c){
+  var calc = c.bamboo - (c.room + c.stairs + c.roof + c.connector )
+  console.log( "The bamboo ratio is  " + calc)
+  return calc 
+
+}
+
+
+
+function addBox (label) {
+  switch(label){
+    case "roof":
+      counter.roof +=1
+      break
+    case "room":
+      counter.room +=1
+      break
+    case "connector":
+      counter.connector +=1
+      break
+    case "bamboo":
+      counter.bamboo +=1
+      break
+    case "stairs":
+    counter.stairs +=1
+      break
+  }
+console.log(counter)
+calcNeu(counter)
+
+}
+
+function updateCount(e) {
+  const data = calcNeu(counter)
+  const answer = document.getElementById('calculated-area');
+  
+  const area = calcNeu(counter);
+  answer.innerHTML = `<p><strong>${area}</strong></p><p>Forest Health</p>`;
+  
+}
+
+
+
 // Bamboo Forest
 
 // random functions
@@ -144,20 +198,20 @@ for(var i = -count; i < count - 1; i++) {
 
 // Aavatars
 
-// const avatar02 = new GLTFLoader()
+const avatar02 = new GLTFLoader()
 
-// avatar02.load(
-//     'models/character2.glb',
-//     function (gltf) {
+avatar02.load(
+    'models/character2.glb',
+    function (gltf) {
 
-//         const model = gltf.scene;
-//         model.position.setX(70);
-//         model.position.setZ(-30);
-//         model.rotateY(Math.PI / 2);
-//         model.position.set(-100, 30, 0);
-//         scene.add(model)
-//     },
-// )
+        const model = gltf.scene;
+        model.position.setX(70);
+        model.position.setZ(-30);
+        model.rotateY(Math.PI / 2);
+        model.position.set(-100, 30, 0);
+        scene.add(model)
+    },
+)
 
 // ASSERTS LOAD
 
@@ -197,6 +251,19 @@ model03.load(
         scene.add(model)
     },
 )
+
+const model04 = new GLTFLoader()
+model04.load(
+    'models/composition.glb',
+    function (gltf) {
+
+        const model = gltf.scene;
+        model.position.setX(0 -2.5);
+        model.position.setZ(0-2.5);
+        scene.add(model)
+    },
+)
+
 
 
 /**
@@ -246,40 +313,49 @@ controls.dampingFactor = 0.1;
 
 // Select Option
 
-let new_mtl;
+let new_mtl = {
+  material: new THREE.MeshLambertMaterial({
+    color: parseInt("0x000050")}),
+  label: null
 
-new_mtl = new THREE.MeshLambertMaterial({
-  color: parseInt("0x000050"),
-});
+}
+
+
 
 $('#roof').click(() => {
-  new_mtl = new THREE.MeshLambertMaterial({
+  new_mtl.material = new THREE.MeshLambertMaterial({
     color: parseInt("0xA65F21"),
+    
   });
+  new_mtl.label = "roof"
 })
 
 $('#stairs').click(() => {
-  new_mtl = new THREE.MeshLambertMaterial({
+  new_mtl.material = new THREE.MeshLambertMaterial({
     color: parseInt("0xFF6B31"),
   });
+  new_mtl.label = "stairs"
 })
 
 $('#room').click(() => {
-  new_mtl = new THREE.MeshLambertMaterial({
+  new_mtl.material = new THREE.MeshLambertMaterial({
     color: parseInt("0xBF9A56"),
   });
+  new_mtl.label = "room"
 })
 
 $('#connector').click(() => {
-  new_mtl = new THREE.MeshLambertMaterial({
+  new_mtl.material = new THREE.MeshLambertMaterial({
     color: parseInt("0x59271C"),
   });
+  new_mtl.label = "connector"
 })
 
 $('#bamboo').click(() => {
-  new_mtl = new THREE.MeshLambertMaterial({
+  new_mtl.material = new THREE.MeshLambertMaterial({
     color: parseInt("0x83A605"),
   });
+  new_mtl.label = "bamboo"
 })
 
 
@@ -287,7 +363,7 @@ $('#bamboo').click(() => {
  * Renderer
  */
 const renderer = new THREE.WebGLRenderer({
-    canvas: canvas, antialias: true, preserveDrawingBuffer: true
+    canvas: canvas, antialias: true, preserveDrawingBuffer: true, alpha: true
 })
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
@@ -347,12 +423,13 @@ function onPointerDown( event ) {
         objects.splice( objects.indexOf( intersect.object ), 1 );
 
       }
+      
 
       // create cube
 
     } if ( event.button == 0 ) {
-
-      const voxel = new THREE.Mesh( cubeGeo, new_mtl );
+      console.log(new_mtl.label)
+      const voxel = new THREE.Mesh( cubeGeo, new_mtl.material );
       voxel.position.copy( intersect.point ).add( intersect.face.normal );
       voxel.position.divideScalar( 5 ).floor().multiplyScalar( 5 ).addScalar( 2.5 );
 
@@ -363,6 +440,10 @@ function onPointerDown( event ) {
       else {
         alert("Bamboo construction restricts to 3 storeys")
       }
+
+      addBox(new_mtl.label)
+      updateCount(event)
+
     } else {
       console.log("Press Mouse Button")
     }
