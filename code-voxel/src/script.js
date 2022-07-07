@@ -16,34 +16,6 @@ var i, intersector;
 
 const objects = [];
 
-let gui, voxelConfig = {
-    orthographicProjection: false
-};
-
-
-
-/**
- * Base
- */
-// Debug
-gui = new dat.GUI()
-gui.add(voxelConfig, 'orthographicProjection').onChange(function(){
-
-    if ( voxelConfig.orthographicProjection ) {
-        camera.toOrthographic();
-        camera.position.x = 1000;
-           camera.position.y = 707.106;
-        camera.position.z = 1000;
-        theta = 90;
-    } else {
-        camera.toPerspective();
-        camera.position.y = 800;
-    }
-
-});
-
-gui.close();
-
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
 
