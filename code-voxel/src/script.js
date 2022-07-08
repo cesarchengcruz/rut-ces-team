@@ -261,7 +261,7 @@ model02.load(
 
 const model03 = new GLTFLoader()
 model03.load(
-    'models/module-stair.glb',
+    'models/module-stairs.glb',
     function (gltf) {
 
         const model = gltf.scene;
@@ -277,9 +277,28 @@ model03.load(
         cStairs = model;
     },
 )
-
 const model04 = new GLTFLoader()
 model04.load(
+    'models/module-connector.glb',
+    function (gltf) {
+
+        const model = gltf.scene;
+        gltf.scene.traverse((o) => {
+          if (o.isMesh) {
+            o.castShadow = true;
+            o.receiveShadow = true;
+          }
+        });
+        model.position.setX(0 -2.5);
+        model.position.setZ(0-2.5);
+        scene.add(model)
+        cConnector = model;
+
+    },
+)
+
+const model05 = new GLTFLoader()
+model05.load(
     'models/composition.glb',
     function (gltf) {
 
@@ -529,7 +548,7 @@ function onPointerDown( event ) {
       } else if (new_mtl.label == "stairs") {
         voxelR = cStairs.clone();
       } else if (new_mtl.label == "connector") {
-        voxelR = cStairs.clone();
+        voxelR = cConnector.clone();
       } else {
         voxelR = cRoom.clone();
       }
