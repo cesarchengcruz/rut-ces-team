@@ -22,7 +22,6 @@ As the session unfolds, players will have to negotiate their actions between add
 - [x] [Create a 3D multi-player game using THREE.js and Socket.IO](https://cesarchengcruz.github.io/rut-ces-team/src/index.html) 
 - [x] [Our Application](https://cesarchengcruz.github.io/rut-ces-team/src/index.html) 
 
-
 -
 
 
