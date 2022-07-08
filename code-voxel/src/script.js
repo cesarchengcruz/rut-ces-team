@@ -2,6 +2,7 @@ import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as dat from 'lil-gui'
+import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import Stats from 'three/examples/jsm/libs/stats.module'
 
@@ -62,7 +63,7 @@ objects.push( plane );
 const ambientLight = new THREE.AmbientLight( 0x404040 );
 scene.add( ambientLight );
 
-const directionalLight = new THREE.DirectionalLight( 0xe8c37b, 1.55 );
+const directionalLight = new THREE.DirectionalLight( 0xe8c37b, .5 );
 directionalLight.position.set(110,35,-100);
 scene.add( directionalLight );
 
@@ -82,13 +83,16 @@ let counter = {
   roof : 0,
   room: 0,
   connector: 0,
-  bamboo:0,
+  bamboo:15,
   stairs: 0,
 }
 
 function calcNeu(c){
-  var calc = c.bamboo - (c.room + c.stairs + c.roof + c.connector )
-  console.log( "The bamboo ratio is  " + calc)
+  let upCalc = (c.room + c.stairs + c.roof + c.connector )
+  var calc = c.bamboo / upCalc
+
+  // console.log( "The bamboo ratio is  " + calc)
+  // console.log( counter)
   return calc 
 
 }
@@ -113,7 +117,7 @@ function addBox (label) {
     counter.stairs +=1
       break
   }
-console.log(counter)
+// console.log(counter)
 calcNeu(counter)
 
 }
@@ -123,7 +127,9 @@ function updateCount(e) {
   const answer = document.getElementById('calculated-area');
   
   const area = calcNeu(counter);
-  answer.innerHTML = `<p><strong>${area}</strong></p><p>Forest Health</p>`;
+  // Restrict the area to 2 decimal points.
+  const rounded_area = Math.round(area * 100) / 100;
+  answer.innerHTML = `<p><strong>${rounded_area}</strong></p><p>neutrality ratio</p>`;
   
 }
 
@@ -152,7 +158,7 @@ function randomItem (){
 let cBamboo;
 var loader = new GLTFLoader();
 loader.crossOrigin = true;
-loader.load( 'models/bamboo.glb', function ( data ) {
+loader.load( 'models/module-bamboo.glb', function ( data ) {
 
 var count = 25; // getRndInteger(0, 50)
 for(var i = -count; i < count - 1; i++) {
@@ -177,20 +183,35 @@ for(var i = -count; i < count - 1; i++) {
 
 // Aavatars
 
-// const avatar02 = new GLTFLoader()
 
-// avatar02.load(
-//     'models/character2.glb',
-//     function (gltf) {
 
-//         const model = gltf.scene;
-//         model.position.setX(70);
-//         model.position.setZ(-30);
-//         model.rotateY(Math.PI / 2);
-//         model.position.set(-100, 30, 0);
-//         scene.add(model)
-//     },
-// )
+const avatar01 = new GLTFLoader()
+
+avatar01.load(
+    'models/character.glb',
+    function (gltf) {
+
+        const model = gltf.scene;
+        // model.rotateY(Math.PI / 12);
+        model.position.set(0, 40, -100);
+        scene.add(model)
+    },
+)
+
+const avatar02 = new GLTFLoader()
+
+avatar02.load(
+    'models/character2.glb',
+    function (gltf) {
+
+        const model = gltf.scene;
+        model.position.setX(70);
+        model.position.setZ(-30);
+        model.rotateY(Math.PI / 2);
+        model.position.set(-100, 30, 0);
+        scene.add(model)
+    },
+)
 
 // ASSERTS LOAD
 
@@ -198,7 +219,7 @@ let cRoof, cRoom, cStairs, cConnector;
 
 const model01 = new GLTFLoader();
 model01.load(
-    'models/flat-module.glb',
+    'models/module-room.glb',
     function (gltf) {
 
         const model = gltf.scene;
@@ -218,7 +239,7 @@ model01.load(
 
 const model02 = new GLTFLoader()
 model02.load(
-    'models/roof-module.glb',
+    'models/module-roof.glb',
     function (gltf) {
 
         const model = gltf.scene;
@@ -230,6 +251,7 @@ model02.load(
         });
         model.position.setX(30);
         model.position.setZ(70);
+        model.name = "roof-object"
         scene.add(model)
         cRoof = model;
         
@@ -239,7 +261,7 @@ model02.load(
 
 const model03 = new GLTFLoader()
 model03.load(
-    'models/stair-module.glb',
+    'models/module-stair.glb',
     function (gltf) {
 
         const model = gltf.scene;
@@ -419,25 +441,68 @@ function onPointerMove( event ) {
 
 }
 
+
+// Recursive function - this function calls itself again, when isContainer is undefined/false passing its parent as new child
+
+function getContainerObjByChild(child) {
+  
+  if(obj.userData.isContainer) return obj
+
+  else if(obj.parent != null) return this.getContainerObjByChild(obj.parent)
+
+  else return null
+}
+
+
+
 function onPointerDown( event ) {
 
   pointer.set( ( event.clientX / window.innerWidth ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1 );
 
   raycaster.setFromCamera( pointer, camera );
 
-  const intersects = raycaster.intersectObjects( objects, false );
-
+  // const intersects = raycaster.intersectObjects( objects, false );
+  const intersects = raycaster.intersectObjects( objects, true );
   if ( intersects.length > 0 ) {
-
+    
+    
     const intersect = intersects[ 0 ];
+    console.log("interesects")
+    console.log(intersects)
+    var objectGroup = intersects[2]
+    console.log(objectGroup)
+    
 
     // delete cube
 
     if ( event.button == 2 ) {
 
       if ( intersect.object !== plane ) {
+               
+        var selectedObject = scene.getObjectByName(intersect.object.name);
+        console.log (selectedObject.parent.parent.name)
 
-        scene.remove( intersect.object );
+        const parentRemove  = selectedObject.parent;
+        // console.log ("object to remove")
+        // console.log (parentRemove)
+
+        // var children_to_remove = [];
+        // scene.traverse(function(child){
+            
+        //     if(child.name == parentRemove.name){
+        //        children_to_remove.push(child);
+        //     }
+        // });
+
+        // console.log(children_to_remove.length)
+        
+        // children_to_remove.forEach(function(group){
+        //     console.log(group.children)
+        //     scene.remove(group);
+        // });
+
+
+        // scene.remove( intersect.object );
 
         objects.splice( objects.indexOf( intersect.object ), 1 );
 
@@ -474,11 +539,12 @@ function onPointerDown( event ) {
       voxelR.position.copy( intersect.point ).add( intersect.face.normal );
       voxelR.position.divideScalar( 5 ).floor().multiplyScalar( 5 ).addScalar( 2.5 );
       voxelR.position.setY(voxelR.position.y - 2.5)
+      voxelR.name = "test" + getRndInteger(1, 5000)
 
-      scene.add(voxelR)
+      scene.add(voxelR);
       objects.push(voxelR);
 
-      // console.log(objects)
+      console.log(objects)
 
       
       voxel.position.copy( intersect.point ).add( intersect.face.normal );
