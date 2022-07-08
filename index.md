@@ -23,6 +23,6 @@ As the session unfolds, players will have to negotiate their actions between add
 - [x] [Our Application](https://cesarchengcruz.github.io/rut-ces-team/src/index.html) 
 
 
-
+-
 
 
