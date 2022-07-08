@@ -55,10 +55,28 @@ const pointer = new THREE.Vector2();
 const geometry = new THREE.PlaneGeometry( 100, 100 );
 geometry.rotateX( - Math.PI / 2 );
 
-const plane = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial( { visible: true } ) );
+const plane = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial( { visible: false } ) );
 scene.add( plane );
 
 objects.push( plane );
+
+let bulbLight, bulbMat;
+
+const bulbGeometry = new THREE.SphereGeometry( 0.02, 16, 8 );
+bulbLight = new THREE.PointLight( 0xffee88, 1, 100, 2 );
+
+bulbMat = new THREE.MeshStandardMaterial( {
+  emissive: 0xffffee,
+  emissiveIntensity: 1.25,
+  color: 0x000000
+} );
+bulbLight.add( new THREE.Mesh( bulbGeometry, bulbMat ) );
+
+bulbLight.castShadow = true;
+bulbLight.position.set( 2.5, 14, 2.5 );
+scene.add( bulbLight );
+
+bulbLight.power = 25;
 
 const ambientLight = new THREE.AmbientLight( 0x404040 );
 scene.add( ambientLight );
@@ -184,34 +202,33 @@ for(var i = -count; i < count - 1; i++) {
 // Aavatars
 
 
+// const avatar01 = new GLTFLoader()
 
-const avatar01 = new GLTFLoader()
+// avatar01.load(
+//     'models/character.glb',
+//     function (gltf) {
 
-avatar01.load(
-    'models/character.glb',
-    function (gltf) {
+//         const model = gltf.scene;
+//         // model.rotateY(Math.PI / 12);
+//         model.position.set(0, 40, -100);
+//         scene.add(model)
+//     },
+// )
 
-        const model = gltf.scene;
-        // model.rotateY(Math.PI / 12);
-        model.position.set(0, 40, -100);
-        scene.add(model)
-    },
-)
+// const avatar02 = new GLTFLoader()
 
-const avatar02 = new GLTFLoader()
+// avatar02.load(
+//     'models/character2.glb',
+//     function (gltf) {
 
-avatar02.load(
-    'models/character2.glb',
-    function (gltf) {
-
-        const model = gltf.scene;
-        model.position.setX(70);
-        model.position.setZ(-30);
-        model.rotateY(Math.PI / 2);
-        model.position.set(-100, 30, 0);
-        scene.add(model)
-    },
-)
+//         const model = gltf.scene;
+//         model.position.setX(70);
+//         model.position.setZ(-30);
+//         model.rotateY(Math.PI / 2);
+//         model.position.set(-100, 30, 0);
+//         scene.add(model)
+//     },
+// )
 
 // ASSERTS LOAD
 
@@ -338,7 +355,7 @@ const camera = new THREE.PerspectiveCamera(
   1,
   10000
 );
-camera.position.set(65, 100, 150);
+camera.position.set(95, 90, 150);
 camera.lookAt(0, 0, 0);
 scene.add(camera);
 
@@ -618,11 +635,9 @@ function render() {
 }
 
 
-
-const clock = new THREE.Clock()
-
 const tick = () =>
 {
+    const clock = new THREE.Clock()
     const elapsedTime = clock.getElapsedTime()
 
     // Update controls
@@ -636,3 +651,6 @@ const tick = () =>
 }
 
 tick()
+
+
+
