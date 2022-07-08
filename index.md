@@ -15,13 +15,8 @@ As the session unfolds, players will have to negotiate their actions between add
 
 ## Brainstorm idea
 
-- [Figma](https://www.figma.com/file/ySYMv1fa4Gku8PbsbPQHVP/dbf-collab-competition?node-id=0%3A1)
 
 ## Prototypes
 - [x] [Creating an collaborative drawing app using NodeJS and Socket Io](https://cesarchengcruz.github.io/rut-ces-team/codingTrainSocket/public/index.html) 
 - [x] [Create a 3D multi-player game using THREE.js and Socket.IO](https://cesarchengcruz.github.io/rut-ces-team/src/index.html) 
 - [x] [Our Application](https://cesarchengcruz.github.io/rut-ces-team/src/index.html) 
-
--
-
-
