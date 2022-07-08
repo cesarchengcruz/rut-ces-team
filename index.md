@@ -1,4 +1,4 @@
-![logo](/images/image 18.png)
+![logo](/images/image18.png)
 
 ## Rutvik-Cesar-Team
 
