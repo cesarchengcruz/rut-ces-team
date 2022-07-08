@@ -7,7 +7,7 @@ Hello Team, this is our landing page for our project we explored ideas of RTC ar
 # NetzeroScape
 (200 word description) 
 
-This project explore ideas of real-time-collaborarion around prefab modular construction, embodied carbon and gamification.  The aim of the game is to increase housing stock while preserving a healthy environment. NetzeroScape is a virtual landscape with only one resource--bamboo-- and each cell can have one of three states, forest, building or empty. 
+This project explore ideas of real-time-collaborarion around prefab modular construction, embodied carbon and gamification. The aim of the game is to increase housing stock while preserving a healthy environment. NetzeroScape is a virtual landscape with only one resource--bamboo-- and each cell can have one of three states, forest, building or empty. 
 
 Each session starts with a random distribution of forest cells, which presents players with some initial constraints. Players need to combine construction modules to generate housing  and gain housing points. Players can choose between 5 modules, room, roof, stair, connector or bamboo. In order to build a second story, players need to first place a stair module, but this does not add housing points. Players will need to find the best configuration of modules to increase housing while keeping enough bamboo forest in the landscape. Players can see in real time what their combined action represents to the state of landscape by looking at the Neutrality Ratio Score, which measures balance between active forest cells and number of building units. 
 
