@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Competition</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; }
+        form { background: rgba(0, 0, 0, 0); padding: 3px; position: fixed; bottom: 0; width: 20%; }
+        form input { font-family: 'Poppins', sans-serif; border: 0; padding: 10px; width: 80%; margin-right: .5%; }
+        form button { font-family: 'Poppins', sans-serif; width: 19%; background: rgba(0, 0, 0, 0.45); border: none; padding: 10px; color: #FFFFFF; }
+        #messages { list-style-type: none; bottom: 45px; position: fixed; width: 20%; max-width: 36ch; word-wrap:break-word;}
+        #messages li { padding: 5px 10px;}
+        #messages li:nth-child(odd) { background: rgba(238, 238, 238, 0)}
+      </style>
+      <script>
+        $(function(){
+            const socket = io();
+            $('form').submit(function(e){
+                e.preventDefault();//prevents page reloading
+                socket.emit('chat message', $('#m').val());
+                $('#m').val('');
+                return false;
+            });
+            
+            socket.on('chat message', function(msg){
+                $('#messages').append($('<li>').text(msg));
+            })
+        });
+    </script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="importmap">
+        {
+          "imports": {
+            "three": "./build/three.module.js",
+            "three/examples/jsm/controls/OrbitControls": "./jsm/controls/OrbitControls.js",
+            "three/examples/jsm/libs/stats.module": "./jsm/libs/stats.module.js",
+            "three/examples/jsm/libs/dat.gui.module": "./jsm/libs/dat.gui.module.js"
+          }
+        }
+      </script>
+</head>
+<body>
+    <div class='container'>
+        <h1>NetZero<span>Scape</span></h1>
+    </div> 
+
+    <div id="info">
+        <h3>Rules</h3>
+        <br>
+        Bamboo Construction is limited to 3 storeys
+        <br>
+        At the start of game, the <strong> #Building blocks = #Bamboo cells</strong>
+        <br>
+        Bamboo resources can be replenished by adding more bamboo cells
+	    <br>
+        Each room/roof module houses one person, stairs or connectors do not house people
+        <br>
+        Multi-story construction is only only possible with the help of Stais modules 
+      </div>
+
+    <div class='mouse-tut'>
+        <img src="/static/icons/instructions.png" alt=""/>
+    </div> 
+
+
+    <canvas class="webgl"></canvas>
+        <div class= "stats">
+            <div class="calculation-box">
+                <div class="calc-title"><span class="b-title" > Building Neutrality </span>  </div>
+                <div class="score"> <img src="/static/icons/neutrality.svg" alt=""/></div>
+                
+                <div id="calculated-area"> 1.2 <br>Neutrality Ratio</div>
+            </div>
+            <div class="calculation-box2">
+                <div class="calc-title"><span class="b-title" > Active Forest </span>  </div>
+                <div class="score2"> <img src="/static/icons/bamboo icon.png" alt=""/></div>
+                
+                <div id="calculated-area2"> ⭐⭐⭐⭐ </div>
+            </div>
+
+            <div class="calculation-box3">
+                <div class="calc-title"><span class="b-title" > Housing Stock </span>  </div>
+                <div class="score2"> <img src="/static/icons/housing stock.png" alt=""/></div>
+                
+                <div id="calculated-area2"> 🤗🤗🤗🤗</div>
+            </div>
+         </div>
+
+        <div class="leftpanel">
+            <div class="legends"><span class="b-title" > Blocks </span>  </div>
+            <div class="options">
+                <div  id="stairs" class="option --is-active" data-option="stairs">
+                    <img src="/static/icons/stair.png" alt=""/>
+                </div>
+                <div id="connector" class="option" data-option="connector">
+                    <img src="/static/icons/connector.png" alt=""/>
+                </div>
+                <div id="roof" class="option" data-option="roof">
+                    <img src="/static/icons/roof.png" alt=""/>
+                </div>
+                <div id="room" class="option" data-option="room">
+                    <img src="/static/icons/room.png" alt=""/>
+                </div>
+                <div id="bamboo" class="option" data-option="bamboo">
+                    <img src="/static/icons/bamboo.png" alt=""/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ul id="messages"></ul> 
+    <form action="">
+      <input id="m" autocomplete="off" /><button>Send</button>
+    </form>
+    <script type="module" src="script.js"></script>
+</body>
+</html>
