@@ -1,10 +1,4 @@
-import './style.css'
-import * as THREE from 'three'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import Stats from 'three/examples/jsm/libs/stats.module'
-
-var socket
+let socket;
 //socket = io.connect('http://localhost:3000') // Connect client to server in socket
 socket = io()
 
@@ -23,14 +17,14 @@ camera.position.set(95, 90, 150);
 camera.lookAt(0, 0, 0);
 scene.add(camera);
 
-const stats = new Stats();
-stats.domElement.style.position = 'absolute';
-stats.domElement.style.top = '0px';
-// container.appendChild( stats.domElement );
+// const stats = new Stats();
+// stats.domElement.style.position = 'absolute';
+// stats.domElement.style.top = '0px';
+// // container.appendChild( stats.domElement );
 
 // Controls
 
-const controls = new OrbitControls(camera, canvas);
+const controls = new THREE.OrbitControls(camera, canvas);
 controls.enableDamping = true;
 controls.dampingFactor = 0.1;
 
@@ -40,8 +34,15 @@ const renderer = new THREE.WebGLRenderer({
 
 renderer.shadowMap.enabled = true;
 
+const sizes = {
+  width: window.innerWidth,
+  height: window.innerHeight
+}
+
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+
+
 
 window.addEventListener('resize', () =>
 {
@@ -70,7 +71,7 @@ class Cube{
     // Progress
     this.rollOverGeo = new THREE.BoxGeometry( 5, 5, 5 );
     this.rollOverMaterial = new THREE.MeshBasicMaterial( { color: 0xff0000, opacity: 0.5, transparent: true } );
-    this.rollOverMesh = new THREE.Mesh( rollOverGeo, rollOverMaterial );
+    this.rollOverMesh = new THREE.Mesh( this.rollOverGeo, this.rollOverMaterial );
     scene.add( this.rollOverMesh );
 
     // Added
@@ -204,10 +205,10 @@ class Cube{
 
     //Create random bamboo forest
 
-    this.loader = new GLTFLoader();
+    this.loader = new THREE.GLTFLoader();
     this.loader.crossOrigin = true;
     this.loader.load( 'models/module-bamboo.glb', function ( data ) {
-
+  
       this.count = 25; // getRndInteger(0, 50)
     for(var i = -this.count; i < this.count - 1; i++) {
       
@@ -232,7 +233,7 @@ class Cube{
     // Aavatars
 
 
-    // const avatar01 = new GLTFLoader()
+    // const avatar01 = new THREE.GLTFLoader()
 
     // avatar01.load(
     //     'models/character.glb',
@@ -245,7 +246,7 @@ class Cube{
     //     },
     // )
 
-    // const avatar02 = new GLTFLoader()
+    // const avatar02 = new THREE.GLTFLoader()
 
     // avatar02.load(
     //     'models/character2.glb',
@@ -261,7 +262,7 @@ class Cube{
     // )
 
     // ASSERTS LOAD
-    this.model01 = new GLTFLoader();
+    this.model01 = new THREE.GLTFLoader();
     this.model01.load(
         'models/module-room.glb',
         function (gltf) {
@@ -281,7 +282,7 @@ class Cube{
         },
     )
 
-    this.model02 = new GLTFLoader()
+    this.model02 = new THREE.GLTFLoader()
     this.model02.load(
         'models/module-roof.glb',
         function (gltf) {
@@ -303,7 +304,7 @@ class Cube{
     )
 
 
-    this.model03 = new GLTFLoader()
+    this.model03 = new THREE.GLTFLoader()
     this.model03.load(
         'models/module-stairs.glb',
         function (gltf) {
@@ -321,7 +322,7 @@ class Cube{
             this.cStairs = this.model;
         },
     )
-    this.model04 = new GLTFLoader()
+    this.model04 = new THREE.GLTFLoader()
     this.model04.load(
         'models/module-connector.glb',
         function (gltf) {
@@ -353,7 +354,7 @@ class Cube{
 
 
     $('#roof').click(() => {
-      new_mtl.material = new THREE.MeshLambertMaterial({
+      this.new_mtl.material = new THREE.MeshLambertMaterial({
         color: parseInt("0xA65F21"), opacity: 0.0, transparent: true
         
       });
@@ -361,28 +362,28 @@ class Cube{
     })
 
     $('#stairs').click(() => {
-      new_mtl.material = new THREE.MeshLambertMaterial({
+      this.new_mtl.material = new THREE.MeshLambertMaterial({
         color: parseInt("0xFF6B31"), opacity: 0.0, transparent: true
       });
       this.new_mtl.label = "stairs"
     })
 
     $('#room').click(() => {
-      new_mtl.material = new THREE.MeshLambertMaterial({
+      this.new_mtl.material = new THREE.MeshLambertMaterial({
         color: parseInt("0xBF9A56"), opacity: 0.0, transparent: true
       });
       this.new_mtl.label = "room"
     })
 
     $('#connector').click(() => {
-      new_mtl.material = new THREE.MeshLambertMaterial({
+      this.new_mtl.material = new THREE.MeshLambertMaterial({
         color: parseInt("0x59271C"), opacity: 0.0, transparent: true
       });
       this.new_mtl.label = "connector"
     })
 
     $('#bamboo').click(() => {
-      new_mtl.material = new THREE.MeshLambertMaterial({
+      this.new_mtl.material = new THREE.MeshLambertMaterial({
         color: parseInt("0x83A605"), opacity: 0.0, transparent: true
       });
       this.new_mtl.label = "bamboo"
@@ -394,7 +395,7 @@ class Cube{
 
       this.raycaster.setFromCamera( this.pointer, camera );
 
-      const intersects = raycaster.intersectObjects( objects, false );
+      const intersects = this.raycaster.intersectObjects( objects, false );
 
       if ( intersects.length > 0 ) {
 
@@ -426,10 +427,10 @@ class Cube{
 
       this.pointer.set( ( event.clientX / window.innerWidth ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1 );
 
-      this.raycaster.setFromCamera( pointer, camera );
+      this.raycaster.setFromCamera( this.pointer, camera );
 
       // const intersects = raycaster.intersectObjects( objects, false );
-      const intersects = raycaster.intersectObjects( objects, true );
+      const intersects = this.raycaster.intersectObjects( objects, true );
       if ( intersects.length > 0 ) {
         
         
@@ -566,17 +567,15 @@ class Cube{
 
     })
 
-    function animate() {
+  }
+
+    animate(){
 
       controls.update()
-      renderer.setAnimationLoop(() => {
-        renderer.render(scene, camera);
-        
-        });
-      stats.update();    
+      renderer.render(scene, camera);
     }
 
-  }}
+}
 
 // Instantiate (call) a class (it will draw cube on a canvas when server is launched 1st time)
 let newbox = new Cube()

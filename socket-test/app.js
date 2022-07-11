@@ -13,11 +13,11 @@ const path = require('path')
 
 console.log("My socket server is running")
 
-app.use(express.static('public'))
+app.use(express.static('src'))
 app.use('/build/', express.static(path.join(__dirname, 'node_modules/three/build')));
 app.use('/jsm/', express.static(path.join(__dirname, 'node_modules/three/examples/jsm')))
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/public/index.html');
+    res.sendFile(__dirname + '/src/index.html');
   });
 
 var name;

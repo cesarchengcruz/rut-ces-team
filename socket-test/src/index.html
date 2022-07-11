@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+        var name = prompt("Enter your name");
+      </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,23 +35,17 @@
         });
     </script>
     <script src="/socket.io/socket.io.js"></script>
-    <script type="importmap">
-        {
-          "imports": {
-            "three": "./build/three.module.js",
-            "three/examples/jsm/controls/OrbitControls": "./jsm/controls/OrbitControls.js",
-            "three/examples/jsm/libs/stats.module": "./jsm/libs/stats.module.js",
-            "three/examples/jsm/libs/dat.gui.module": "./jsm/libs/dat.gui.module.js"
-          }
-        }
-      </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/92/three.min.js"></script>
+    <script src="https://unpkg.com/three@0.92.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="OrbitControls.js"></script>
+    <script type="module" src="script.js"></script>
 </head>
 <body>
     <div class='container'>
         <h1>NetZero<span>Scape</span></h1>
     </div> 
 
-    <div id="info">
+    <!-- <div id="info">
         <h3>Rules</h3>
         <br>
         Bamboo Construction is limited to 3 storeys
@@ -60,10 +57,10 @@
         Each room/roof module houses one person, stairs or connectors do not house people
         <br>
         Multi-story construction is only only possible with the help of Stais modules 
-      </div>
+      </div> -->
 
     <div class='mouse-tut'>
-        <img src="/static/icons/instructions.png" alt=""/>
+        <img src="/icons/instructions.png" alt=""/>
     </div> 
 
 
@@ -71,20 +68,20 @@
         <div class= "stats">
             <div class="calculation-box">
                 <div class="calc-title"><span class="b-title" > Building Neutrality </span>  </div>
-                <div class="score"> <img src="/static/icons/neutrality.svg" alt=""/></div>
+                <div class="score"> <img src="/icons/neutrality.svg" alt=""/></div>
                 
                 <div id="calculated-area"> 1.2 <br>Neutrality Ratio</div>
             </div>
             <div class="calculation-box2">
                 <div class="calc-title"><span class="b-title" > Active Forest </span>  </div>
-                <div class="score2"> <img src="/static/icons/bamboo icon.png" alt=""/></div>
+                <div class="score2"> <img src="/icons/bamboo icon.png" alt=""/></div>
                 
                 <div id="calculated-area2"> ⭐⭐⭐⭐ </div>
             </div>
 
             <div class="calculation-box3">
                 <div class="calc-title"><span class="b-title" > Housing Stock </span>  </div>
-                <div class="score2"> <img src="/static/icons/housing stock.png" alt=""/></div>
+                <div class="score2"> <img src="/icons/housing stock.png" alt=""/></div>
                 
                 <div id="calculated-area2"> 🤗🤗🤗🤗</div>
             </div>
@@ -94,19 +91,19 @@
             <div class="legends"><span class="b-title" > Blocks </span>  </div>
             <div class="options">
                 <div  id="stairs" class="option --is-active" data-option="stairs">
-                    <img src="/static/icons/stair.png" alt=""/>
+                    <img src="/icons/stair.png" alt=""/>
                 </div>
                 <div id="connector" class="option" data-option="connector">
-                    <img src="/static/icons/connector.png" alt=""/>
+                    <img src="/icons/connector.png" alt=""/>
                 </div>
                 <div id="roof" class="option" data-option="roof">
-                    <img src="/static/icons/roof.png" alt=""/>
+                    <img src="/icons/roof.png" alt=""/>
                 </div>
                 <div id="room" class="option" data-option="room">
-                    <img src="/static/icons/room.png" alt=""/>
+                    <img src="/icons/room.png" alt=""/>
                 </div>
                 <div id="bamboo" class="option" data-option="bamboo">
-                    <img src="/static/icons/bamboo.png" alt=""/>
+                    <img src="/icons/bamboo.png" alt=""/>
                 </div>
             </div>
         </div>
@@ -115,6 +112,5 @@
     <form action="">
       <input id="m" autocomplete="off" /><button>Send</button>
     </form>
-    <script type="module" src="script.js"></script>
 </body>
 </html>
