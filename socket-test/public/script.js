@@ -588,3 +588,5 @@ socket.on('Redraw figure', (data)=>{
   // Recieve 'Redraw figure' message from server with data and move the cube according to the recieved data
   newbox.box.position.set(data.x, data.y, data.z)
 })
+
+

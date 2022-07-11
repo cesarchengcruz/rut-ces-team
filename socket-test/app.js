@@ -39,6 +39,7 @@ io.sockets.on('connection', (socket)=>{
       
 
   })
+  
 
   //Receiving data1
   socket.on('Get positions', (data)=>{ //If recieved a message 'Get positions' from the client, trigger the function below
